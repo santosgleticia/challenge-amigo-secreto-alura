@@ -28,10 +28,12 @@ function atualizarListaDeAmigos() {
 }
 
 function sortearAmigo() {
-    if (listaDeAmigos.length === 0) {
+    if(listaDeAmigos.length === 0) {
         alert('A lista de amigos está vazia! Adicione amigos antes de sortear.');
         return;
     }
+    
+    document.getElementById('listaAmigos').style.display = 'none';
 
     let amigoAleatorioSorteado = Math.floor(Math.random() * listaDeAmigos.length);
     console.log(amigoAleatorioSorteado);
