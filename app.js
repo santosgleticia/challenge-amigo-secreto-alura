@@ -1,29 +1,33 @@
 let listaDeAmigos = [];
 
 function adicionarAmigo() {
-    let amigoAdicionado = document.querySelector('input').value;
+    let campoAmigoAdicionado = document.querySelector('input').value;
 
-    if(amigoAdicionado == '') {
+    if(campoAmigoAdicionado == '') {
         alert('Por favor, insira um nome.');
+        return;
+    } else if (listaDeAmigos.includes(campoAmigoAdicionado)) {
+        alert('Nome já existente na lista de amigos. Insira-o com alguma diferenciação.');
+        return;
     } else {
-        listaDeAmigos.push(amigoAdicionado);
+        listaDeAmigos.push(campoAmigoAdicionado);
         console.log(listaDeAmigos);
     }
 
-    amigoAdicionado = document.querySelector('input');
-    amigoAdicionado.value = '';
+    campoAmigoAdicionado = document.querySelector('input');
+    campoAmigoAdicionado.value = '';
 
-    atualizarListaDeAmigos();
+    criacaoListaDeAmigos();
 }
 
-function atualizarListaDeAmigos() {
-    let exibicaoListaAmigos = document.getElementById('listaAmigos');
-    exibicaoListaAmigos.innerHTML = '';
+function criacaoListaDeAmigos() {
+    let campoListaAmigos = document.getElementById('listaAmigos');
+    campoListaAmigos.innerHTML = '';
 
     for(i = 0; i <= listaDeAmigos.length - 1; i++) {
         let novoAmigo = document.createElement('li');
         novoAmigo.textContent = listaDeAmigos[i];
-        exibicaoListaAmigos.appendChild(novoAmigo);
+        campoListaAmigos.appendChild(novoAmigo);
     }
 }
 
@@ -32,7 +36,7 @@ function sortearAmigo() {
         alert('A lista de amigos está vazia! Adicione amigos antes de sortear.');
         return;
     }
-    
+
     document.getElementById('listaAmigos').style.display = 'none';
 
     let amigoAleatorioSorteado = Math.floor(Math.random() * listaDeAmigos.length);
@@ -40,6 +44,16 @@ function sortearAmigo() {
 
     let resultadoDoSorteio = listaDeAmigos[amigoAleatorioSorteado];
 
-    let vencedor = document.getElementById('resultado');
-    vencedor.innerHTML = (`O amigo secreto sorteado é: ${resultadoDoSorteio}`);
+    let campoResultado = document.getElementById('resultado');
+    campoResultado.innerHTML = (`O amigo secreto sorteado é: ${resultadoDoSorteio}`);
+}
+
+function reiniciarJogo() {
+    listaDeAmigos = [];
+    criacaoListaDeAmigos();
+    
+    let campoResultado = document.getElementById('resultado');
+    campoResultado.innerHTML = '';
+
+    document.getElementById('listaAmigos').style.display = 'block';
 }
