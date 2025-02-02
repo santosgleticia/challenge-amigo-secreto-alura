@@ -6,7 +6,7 @@ function adicionarAmigo() {
     if (amigoAdicionado == '') {
         alert('Por favor, insira um nome.');
     } else {
-        amigoAdicionado.push(listaDeAmigos);
+        listaDeAmigos.push(amigoAdicionado);
     }
 
     amigoAdicionado = document.querySelector('input');
