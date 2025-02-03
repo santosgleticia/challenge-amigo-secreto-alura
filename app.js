@@ -1,4 +1,5 @@
 let listaDeAmigos = [];
+let sorteados = [];
 
 function adicionarAmigo() {
     let campoAmigoAdicionado = document.querySelector('input').value;
@@ -6,7 +7,7 @@ function adicionarAmigo() {
     if(campoAmigoAdicionado == '') {
         alert('Por favor, insira um nome.');
         return;
-    } else if (listaDeAmigos.includes(campoAmigoAdicionado)) {
+    } else if(listaDeAmigos.includes(campoAmigoAdicionado)) {
         alert('Nome já existente na lista de amigos. Insira-o com alguma diferenciação.');
         return;
     } else {
@@ -24,7 +25,7 @@ function criacaoListaDeAmigos() {
     let campoListaAmigos = document.getElementById('listaAmigos');
     campoListaAmigos.innerHTML = '';
 
-    for(i = 0; i <= listaDeAmigos.length - 1; i++) {
+    for(i = 0; i < listaDeAmigos.length; i++) {
         let novoAmigo = document.createElement('li');
         novoAmigo.textContent = listaDeAmigos[i];
         campoListaAmigos.appendChild(novoAmigo);
@@ -39,10 +40,21 @@ function sortearAmigo() {
 
     document.getElementById('listaAmigos').style.display = 'none';
 
-    let amigoAleatorioSorteado = Math.floor(Math.random() * listaDeAmigos.length);
-    console.log(amigoAleatorioSorteado);
+    if (sorteados.length === listaDeAmigos.length) {
+        alert('Todos os amigos já foram sorteados!');
+        return;
+    }
+    
+    let amigoAleatorioSorteado;
+    do {
+        amigoAleatorioSorteado = Math.floor(Math.random() * listaDeAmigos.length);
+    } while (sorteados.includes(amigoAleatorioSorteado)); // Verifica se o amigo já foi sorteado
 
+    // Obtém o amigo sorteado com base no índice
     let resultadoDoSorteio = listaDeAmigos[amigoAleatorioSorteado];
+
+    // Adiciona o índice do amigo sorteado à lista de sorteados
+    sorteados.push(amigoAleatorioSorteado);
 
     let campoResultado = document.getElementById('resultado');
     campoResultado.innerHTML = (`O amigo secreto sorteado é: ${resultadoDoSorteio}`);
@@ -50,6 +62,7 @@ function sortearAmigo() {
 
 function reiniciarJogo() {
     listaDeAmigos = [];
+    sorteados = [];
     criacaoListaDeAmigos();
     
     let campoResultado = document.getElementById('resultado');
